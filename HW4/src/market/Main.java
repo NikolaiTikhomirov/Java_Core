@@ -1,5 +1,6 @@
 package market;
 
+import market.enums.Gender;
 import market.exceptions.ProductNotFoundException;
 import market.exceptions.QuantityIsNegativeException;
 import market.exceptions.UserNotFoudException;
@@ -20,7 +21,7 @@ public class Main {
 
         System.out.println("===========================================");
         try {
-            orderId2 = market.createOrder(new User("Alex", 22, "666666"));
+            orderId2 = market.createOrder(new User("Alex", 22, "666666", Gender.MALE));
         } catch (UserNotFoudException e) {
             System.out.println(e.getMessage());
         }

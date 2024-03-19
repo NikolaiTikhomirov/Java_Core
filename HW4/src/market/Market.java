@@ -1,5 +1,6 @@
 package market;
 
+import market.enums.Gender;
 import market.exceptions.ProductNotFoundException;
 import market.exceptions.QuantityIsNegativeException;
 import market.exceptions.UserNotFoudException;
@@ -16,10 +17,10 @@ public class Market {
 
     public Market() {
         users = new ArrayList<>(List.of(
-                new User("Tom", 45, "11111"),
-                new User("Bob", 26, "22222"),
-                new User("Jim", 53, "33333"),
-                new User("John", 40, "44444")
+                new User("Mary", 45, "11111", Gender.FEMALE),
+                new User("Bob", 26, "22222", Gender.MALE),
+                new User("Kate", 53, "33333", Gender.FEMALE),
+                new User("John", 40, "44444", Gender.MALE)
         ));
         products = new ArrayList<>(List.of(
                 new Product("Milk", 89),
