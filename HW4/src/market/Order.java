@@ -1,20 +1,22 @@
 package market;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-public class Order {
+public class Order implements Serializable {
 
     private static int count = 1;
     private int id;
     private User user;
-    private Map<Product, Integer> products;
+    private Basket<String, Product> basket;
 
-    public Order(User user) {
+    public Order(User user, Basket basket) {
         this.id = count;
         count++;
         this.user = user;
-        products = new HashMap<Product, Integer>();
+        this.basket = basket;
     }
 
     public int getId() {
@@ -25,15 +27,15 @@ public class Order {
         return user;
     }
 
-    public void add (Product product, int quantity) {
-        products.put(product, quantity);
-    }
-
     @Override
     public String toString() {
-        return "Order{" +
-                "user=" + user +
-                ", products=" + products +
+        List list = new ArrayList<>();
+        for (Product product : basket) {
+            list.add(product);
+        }
+        return "Order{" + "id " + id +
+                ", user=" + user.getName() +
+                ", products=" + list +
                 '}';
     }
 }

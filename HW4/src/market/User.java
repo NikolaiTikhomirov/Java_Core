@@ -2,9 +2,10 @@ package market;
 
 import market.enums.Gender;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
     private String name;
     private int age;
     private String phone;
