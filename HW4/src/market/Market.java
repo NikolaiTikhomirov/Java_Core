@@ -21,7 +21,6 @@ public class Market {
 
     public Market(Writable writable) {
         this.writable = writable;
-
         usersListPath = "src/market/db/usersListPath";
         usersList = (UsersList<String, User>) writable.read(usersListPath);
         productsListPath = "src/market/db/productsListPath";
@@ -30,26 +29,11 @@ public class Market {
         ordersList = (OrdersList<Integer, Order>) writable.read(ordersListPath);
         basketsListPath = "src/market/db/basketsListPath";
         basketsList = (BasketsList<User, Basket>) writable.read(basketsListPath);
-
-//        users = new ArrayList<>(List.of(
-//                new User("Mary", 45, "11111", Gender.FEMALE),
-//                new User("Bob", 26, "22222", Gender.MALE),
-//                new User("Kate", 53, "33333", Gender.FEMALE),
-//                new User("John", 40, "44444", Gender.MALE)
-//        ));
-
-//        productList = new ArrayList<>(List.of(
-//                new Product("Milk", 89),
-//                new Product("Bread", 26),
-//                new Product("Cheese", 125)
-//        ));
-
-//        orders = new ArrayList<>();
     }
 
-    public int createOrder(User user, Basket basket) throws UserNotFoudException {
+    public int makeOrder(User user, Basket basket, Double finalPrice) throws UserNotFoudException {
         if (!usersList.contains(user)) throw new UserNotFoudException("user not found, " + user);
-        Order order = new Order(user, basket);
+        Order order = new Order(user, basket, finalPrice);
         ordersList.addOrder(order);
         return order.getId();
     }

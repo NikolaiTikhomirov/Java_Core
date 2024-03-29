@@ -3,6 +3,7 @@ package market;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.HashMap;
+import java.util.Map;
 
 public class OrdersList <String, T> implements Serializable, Iterable<T>{
     private HashMap<Integer, Order> ordersList;
@@ -17,11 +18,9 @@ public class OrdersList <String, T> implements Serializable, Iterable<T>{
 
     public String getInfo(){
         StringBuilder stringBuilder = new StringBuilder();
-        Integer count = 1;
-        for (Order order : ordersList.values()) {
-            stringBuilder.append(count + order.toString());
+        for (Map.Entry<Integer, Order> order : ordersList.entrySet()) {
+            stringBuilder.append(order.getKey() + ". " + order.getValue().toString());
             stringBuilder.append("\n");
-            count++;
         }
         return (String) stringBuilder.toString();
     }

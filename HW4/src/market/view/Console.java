@@ -1,9 +1,6 @@
 package market.view;
 
-import market.Basket;
-import market.Market;
-import market.Order;
-import market.User;
+import market.*;
 import market.enums.Gender;
 
 import java.util.Scanner;
@@ -110,10 +107,12 @@ public class Console implements View{
                 String title = scanner.nextLine();
                 System.out.println("Введите колличество приобретаемого товара");
                 int quantity = Integer.parseInt(scanner.nextLine());
-                market.addProductToBasket(market.getUsersList().getUser(name), market.getProductsList().getProduct(title), quantity);
-                market.getBasketsList().getBasket(market.getUsersList().getUser(name)).showFullPrice();
+                User user = market.getUsersList().getUser(name);
+                market.addProductToBasket(user, market.getProductsList().getProduct(title), quantity);
+                market.getBasketsList().showFullPrice(user);
             } catch (Exception e) {
                 System.out.println(INPUT_ERROR);
+                e.printStackTrace();
                 continue root;
             }
             addWork = false;
@@ -129,15 +128,20 @@ public class Console implements View{
                 System.out.println("Введите имя покупателя");
                 String name = scanner.nextLine();
                 User user = market.getUsersList().getUser(name);
-                market.getBasketsList().getBasket(user).showFullPrice();
+                BasketsList basketsList = market.getBasketsList();
+                Double finalPrice = basketsList.showFullPrice(user);
                 System.out.println("Чтобы подтвердить покупку, напишите 'yes'");
                 String confirm = scanner.nextLine();
                 if (confirm.equals("yes")) {
-                    Basket basket = market.getBasketsList().order(user);
-                    Order order = new Order(user, basket);
+                    market.makeOrder(user, basketsList.order(user), finalPrice);
+                }
+                else {
+                    System.out.println(INPUT_ERROR);
+                    continue root;
                 }
             } catch (Exception e) {
                 System.out.println(INPUT_ERROR);
+                e.printStackTrace();
                 continue root;
             }
             addWork = false;

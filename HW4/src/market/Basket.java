@@ -1,10 +1,7 @@
 package market;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Basket<String, T> implements Serializable, Iterable<T>{
     private HashMap<String, Product> basket;
@@ -23,10 +20,6 @@ public class Basket<String, T> implements Serializable, Iterable<T>{
         }
     }
 
-    public void showFullPrice (){
-        System.out.println("Стоимость всех товаров в корзине: " + countFullPrice());
-    }
-
     @Override
     public java.lang.String toString() {
         List list = new ArrayList<>();
@@ -36,7 +29,7 @@ public class Basket<String, T> implements Serializable, Iterable<T>{
         return "Корзина{" + list + "}" + " Общая стоимость: " + countFullPrice();
     }
 
-    private Integer countFullPrice(){
+    public Integer countFullPrice(){
         int res = 0;
         for (Product value : basket.values()) {
             res += value.getPrice() * value.getQuantity();
